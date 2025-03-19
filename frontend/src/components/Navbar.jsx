@@ -25,6 +25,7 @@ export const Navbar = () => {
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
       {/* nav */}
       <nav className=" flex justify-between items-center">
+        
         {/* left side */}
         <div className="flex items-center md:gap-16 gap-4">
           <Link to="/" >
@@ -32,22 +33,23 @@ export const Navbar = () => {
           </Link>
 
           {/* search input */}
-          <div className="relative sm:w-72 w-40 space-x-2">
-            <IoSearch className="absolute inline-block left-3 inset-y-2" />
+          <div className="relative sm:w-72 w-38 space-x-2">
+            <IoSearch className="absolute inline-block left-2 inset-y-2" />
             <input
               type="text"
               placeholder="Search"
-              className="px-6 py-1 border bg-[#eaeaea] rounded-md w-full md:px-8 focus:outline-none" />
+              className="px-8 py-1 border bg-[#eaeaea] rounded-md w-full md:px-8 focus:outline-none" />
           </div>
 
         </div>
+
         {/* right side */}
-        <div className="relative flex items-center gap-4 md:space-x-3 space-x-2">
+        <div className="relative flex items-center md:space-x-3 space-x-2">
           <div>
             {currentUser ?
               <>
                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  <img src={avatarImg} alt="" className={`size-7 rounded-full ${currentUser ? 'ring-2 ring-blue-500' : ''}`} />
+                  <img src={avatarImg} alt="" className={`size-6 rounded-full ${currentUser ? 'ring-2 ring-blue-500' : ''}`} />
                 </button>
                 {/* Show dropdown */}
                 {isDropdownOpen && (
@@ -55,7 +57,7 @@ export const Navbar = () => {
                     <ul className='py-2'>
                       {navigation.map(item => (
                         <li key={item.name} onClick={() => setIsDropdownOpen(false)}>
-                          <Link to={item.href} className="block py-2 px-4 text-sm" >{item.name}</Link>
+                          <Link to={item.href} className="block py-2 px-4 text-sm hover:bg-gray-100" >{item.name}</Link>
                         </li>
                       ))}
                     </ul>
@@ -69,7 +71,7 @@ export const Navbar = () => {
           <button className="hidden md:inline-block">
             <RiHeartLine className="size-6" />
           </button>
-          <Link to='/cart' className="bg-primary text-white p-1 sm:px-6 px-2 rounded-md flex items-center gap-2">
+          <Link to='/cart' className="bg-primary text-base p-1 sm:px-6 px-2 rounded-md flex items-center gap-2">
             <FiShoppingCart className="size-6" />
             <span className="text-sm font-semibold sm:ml-1">0</span>
           </Link>
