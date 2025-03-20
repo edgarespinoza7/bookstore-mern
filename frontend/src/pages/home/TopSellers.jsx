@@ -1,0 +1,99 @@
+import React, { useEffect } from 'react'
+import BookCard from './books/BookCard';
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+
+
+// Array of categories
+const categories = [
+  'Chose a genre', 'Business', 'Fiction', 'Horror', 'Adventure']
+
+// TopSellers component
+const TopSellers = () => {
+
+  // State for books
+  const [books, setBooks] = React.useState([]);
+
+  // State for selected category
+  const [selectedCategory, setSelectedCategory] = React.useState('');
+
+  // Fetch books from books.json
+  useEffect(() => {
+
+    const fetchBooks = async () => {
+      try {
+        const data = await fetch('books.json').then(res => res.json());
+        setBooks(data);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBooks();
+  }, []);
+
+  // Filter books based on selected category
+  const filteredBooks = selectedCategory === 'Chose a genre' ? books : books.filter(book => book.category === selectedCategory.toLocaleLowerCase());
+
+  console.log(filteredBooks)
+
+
+  return (
+    <div className='py-10'>
+      <h2 className='text-3xl font-semibold mb-6'>Top Sellers</h2>
+      {/* Dropdown for categories */}
+      <div className='mb-8 flex items-center'>
+        <select name="category" id="category" className='px-4 py-2 border bg-[#eaeaea] border-gray-300 rounded-md focus:outline-none' onChange={(e) => setSelectedCategory(e.target.value)}>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 50,
+          },
+          1180: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
+        
+        className="mySwiper"
+      >
+        {filteredBooks.length > 0 && filteredBooks.map((book) => (
+          <SwiperSlide key={book._id}>
+            <BookCard book={book} />
+          </SwiperSlide>
+
+        ))}
+
+      </Swiper>
+
+
+
+    </div>
+  )
+}
+
+export default TopSellers
