@@ -26,7 +26,7 @@ const TopSellers = () => {
   const [books, setBooks] = React.useState([]);
 
   // State for selected category
-  const [selectedCategory, setSelectedCategory] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = React.useState("Chose a genre");
 
   // Fetch books from books.json
   useEffect(() => {
@@ -46,8 +46,8 @@ const TopSellers = () => {
     selectedCategory === "Chose a genre"
       ? books
       : books.filter(
-          (book) => book.category === selectedCategory.toLocaleLowerCase()
-        );
+        (book) => book.category === selectedCategory.toLocaleLowerCase()
+      );
 
   console.log(filteredBooks);
 
