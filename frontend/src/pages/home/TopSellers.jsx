@@ -3,7 +3,6 @@ import BookCard from "../books/BookCard";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { Navigation, Pagination } from "swiper/modules";
 
 // Import Swiper styles
@@ -26,11 +25,7 @@ const TopSellers = () => {
   const [books, setBooks] = useState([]);
 
   // State for selected category
-<<<<<<< HEAD
   const [selectedCategory, setSelectedCategory] = React.useState("Chose a genre");
-=======
-  const [selectedCategory, setSelectedCategory] = useState("Chose a genre");
->>>>>>> 756ac3b82b750c1c5e4078563fbd0949c1a34971
 
   // Fetch books from books.json
   useEffect(() => {
