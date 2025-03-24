@@ -17,7 +17,7 @@ const navigation = [
 export const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const currentUser = true;
+  const currentUser = false;
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 md:px-12 py-6">
@@ -49,9 +49,8 @@ export const Navbar = () => {
                   <img
                     src={avatarImg}
                     alt=""
-                    className={`size-6 rounded-full ${
-                      currentUser ? "ring-2 ring-blue-500" : ""
-                    }`}
+                    className={`size-6 rounded-full ${currentUser ? "ring-2 ring-blue-500" : ""
+                      }`}
                   />
                 </button>
                 {/* Show dropdown */}
