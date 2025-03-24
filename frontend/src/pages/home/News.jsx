@@ -85,13 +85,13 @@ const News = () => {
                   <h3 className="text-lg font-medium hover:text-blue-600 mb-4">{item.title}</h3>
                 </Link>
 
-                <div className="w-10 h-[4px] bg-primary mb-4"></div>
+                <div className="w-12 h-[4px] bg-primary mb-4"></div>
                 <p className="text-sm text-gray-600">{item.description}</p>
               </div>
               {/* Image */}
               <div className="shrink-0">
                 <Link to="/" >
-                  <img src={item.image} alt={item.title} />
+                  <img src={item.image} alt={item.title} className="w-full object-cover"/>
                 </Link>
               </div>
             </div>
