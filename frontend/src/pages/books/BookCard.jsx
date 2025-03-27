@@ -4,8 +4,16 @@ import PropTypes from "prop-types";
 import { getImgUrl } from "../../utils/getImgUrl";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const BookCard = ({ book }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+
   const { title, description, coverImage, oldPrice, newPrice, _id } = book;
 
   return (
@@ -38,7 +46,10 @@ const BookCard = ({ book }) => {
             <span className="line-through font-normal ml-2">{oldPrice}</span>
           </p>
 
-          <button className="btn-primary px-6 space-x-1 flex items-center gap-1">
+          <button
+            onClick={() => handleAddToCart(book)}
+            className="btn-primary px-6 space-x-1 flex items-center gap-1"
+          >
             <MdAddShoppingCart className="size-6" />
             <span>Add to Cart</span>
           </button>
