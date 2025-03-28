@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link } from "react-router";
 import { HiMiniBars3CenterLeft } from "react-icons/hi2";
 import { IoSearch } from "react-icons/io5";
@@ -6,6 +6,7 @@ import { LuCircleUser } from "react-icons/lu";
 import { RiHeartLine } from "react-icons/ri";
 import { FiShoppingCart } from "react-icons/fi";
 import avatarImg from "../assets/avatar.png";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -15,8 +16,13 @@ const navigation = [
 ];
 
 export const Navbar = () => {
+  // State to manage dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
+
+  // State to manage user authentication status
   const currentUser = false;
 
   return (
@@ -88,7 +94,14 @@ export const Navbar = () => {
             className="bg-primary text-base p-1 sm:px-6 px-2 rounded-md flex items-center gap-2"
           >
             <FiShoppingCart className="size-6" />
-            <span className="text-sm font-semibold sm:ml-1">0</span>
+            {/* Show cart item count */}
+            {cartItems.length > 0 && (
+              <span className="absolute text-center top-1 right-1.5 bg-red-500 text-white font-bold text-xs rounded-full px-2 py-1">
+                {cartItems.length}
+              </span>
+            )}
+            {/* Cart item count */}
+            
           </Link>
         </div>
       </nav>
