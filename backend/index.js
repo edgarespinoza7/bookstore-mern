@@ -1,18 +1,30 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
+import bookRoutes from "./src/books/book.route.js";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
+app.use(express.json());
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
 //Routes
-app.get("/", (req, res) => {
-  res.send("Bookstore API is running!");
-});
+app.use("/api/books", bookRoutes);
+
 
 async function main() {
   await mongoose.connect(process.env.MONGODB_URI);
-  console.log("Connected to MongoDB");
+  app.get("/", (req, res) => {
+    res.send("Bookstore API is running!");
+  });
 }
 
 main()
