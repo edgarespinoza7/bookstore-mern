@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
 import { HiMiniBars3CenterLeft } from "react-icons/hi2";
 import { IoSearch } from "react-icons/io5";
@@ -55,8 +55,9 @@ export const Navbar = () => {
                   <img
                     src={avatarImg}
                     alt=""
-                    className={`size-6 rounded-full ${currentUser ? "ring-2 ring-blue-500" : ""
-                      }`}
+                    className={`size-6 rounded-full ${
+                      currentUser ? "ring-2 ring-blue-500" : ""
+                    }`}
                   />
                 </button>
                 {/* Show dropdown */}
@@ -101,7 +102,6 @@ export const Navbar = () => {
               </span>
             )}
             {/* Cart item count */}
-            
           </Link>
         </div>
       </nav>
