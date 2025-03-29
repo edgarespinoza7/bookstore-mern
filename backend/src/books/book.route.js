@@ -1,5 +1,5 @@
 import express from "express";
-import { createBook, getAllBooks, getBookById, updateBook } from "./book.controller.js"; // Import the createBook function
+import { createBook, getAllBooks, getBookById, updateBook, deleteBook } from "./book.controller.js"; // Import the createBook function
 
 
 const router = express.Router();
@@ -16,6 +16,8 @@ router.get("/:id", getBookById);
 // Update a book by ID
 router.put("/edit/:id", updateBook);
 
+// Delete a book by ID
 
+router.delete("/delete/:id", deleteBook);
 
 export default router;

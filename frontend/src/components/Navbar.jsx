@@ -20,7 +20,7 @@ export const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
+
 
   // State to manage user authentication status
   const currentUser = false;
@@ -55,9 +55,8 @@ export const Navbar = () => {
                   <img
                     src={avatarImg}
                     alt=""
-                    className={`size-6 rounded-full ${
-                      currentUser ? "ring-2 ring-blue-500" : ""
-                    }`}
+                    className={`size-6 rounded-full ${currentUser ? "ring-2 ring-blue-500" : ""
+                      }`}
                   />
                 </button>
                 {/* Show dropdown */}

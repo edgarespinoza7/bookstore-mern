@@ -49,10 +49,23 @@ export const updateBook = async (req, res) => {
     if (!updatedBook) {
       return res.status(404).json({ message: "Book not found" });
     }
-    res.status(200).json({ message: "Book updated successfully", updatedBook }); 
-    
+    res.status(200).json({ message: "Book updated successfully", updatedBook });
+
   } catch (error) {
     console.log("Error updating the book", error);
     res.status(500).json({ message: "Failed to update the book", error });
+  }
+}
+
+export const deleteBook = async (req, res) => {
+  try {
+    const deletedBook = await Book.findByIdAndDelete(req.params.id);
+    if (!deletedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.status(200).json({ message: "Book deleted successfully", deletedBook });
+  } catch (error) {
+    console.log("Error deleting the book", error);
+    res.status(500).json({ message: "Failed to delete the book", error });
   }
 }
