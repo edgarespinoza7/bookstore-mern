@@ -1,9 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form"
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+
+  const [message, setMessage] = useState('')
+
+  const { loginUser } = useAuth()
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -12,7 +19,16 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    try {
+      await loginUser(data.email, data.password)
+      alert('User logged in successfully!')
+      navigate('/')
+    } catch (error) {
+      setMessage('Please provide a valid email and password')
+      console.log(error.message)
+    }
+  }
 
   const handleGoogleSignIn = () => {
 
@@ -29,17 +45,17 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-4'>
             <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor="email">Email</label>
-            <input 
-            {...register("email", { required: true })}
-            type="email" name='email' id='email' placeholder='Email Address' className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow' />
+            <input
+              {...register("email", { required: true })}
+              type="email" name='email' id='email' placeholder='Email Address' className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow' />
           </div>
           <div className='mb-4'>
             <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor="password">Password</label>
-            <input 
-            {...register("password", { required: true })}
-            type="password" name='password' id='password' placeholder='Enter your password' className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow' />
+            <input
+              {...register("password", { required: true })}
+              type="password" name='password' id='password' placeholder='Enter your password' className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow' />
           </div>
-           {errors.exampleRequired && <span>This field is required</span>}
+          {errors.exampleRequired && <span>This field is required</span>}
           {/* {message && <p className='text-red-500 text-xs italic mb-3'>{message}</p>} */}
           <div>
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none'>Log In</button>
@@ -48,9 +64,9 @@ const Login = () => {
         <p className='align-baseline font-medium mt-4 text-sm'>Haven&apos;t an account? Please <Link to="/register" className='text-blue-500 hover:text-blue-700'>Register</Link></p>
         {/* Google Sign In */}
         <div className='mt-4'>
-          <button 
-          onClick={handleGoogleSignIn}
-          className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
+          <button
+            onClick={handleGoogleSignIn}
+            className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
             <FaGoogle className='mr-2' /> Sign In with Google
           </button>
         </div>
