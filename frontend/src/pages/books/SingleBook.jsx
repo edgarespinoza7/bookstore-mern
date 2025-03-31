@@ -37,7 +37,6 @@ const SingleBook = () => {
           alt={book.title}
           className='mb-8'
         />
-
         <div className='mb-4'>
           <p className='text-gray-700 mb-2'><strong>Author: </strong>{book.author || 'Admin'}</p>
           <p className='text-gray-700 mb-4'>Published: <strong>{new Date(book?.createdAt).toLocaleDateString()}</strong></p>

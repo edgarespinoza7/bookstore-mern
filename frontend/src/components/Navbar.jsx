@@ -15,7 +15,7 @@ const navigation = [
   { name: "Check Out", href: "/checkout" },
 ];
 
-export const Navbar = () => {
+const Navbar = () => {
   // State to manage dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -107,3 +107,5 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;
