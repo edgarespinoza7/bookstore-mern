@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFetchBookByIdQuery } from '../../redux/features/cart/booksApi'
+import { useFetchBookByIdQuery } from '../../redux/features/books/booksApi'
 import { useParams } from 'react-router'
 import { getImgUrl } from '../../utils/getImgUrl'
 import { useDispatch } from "react-redux";

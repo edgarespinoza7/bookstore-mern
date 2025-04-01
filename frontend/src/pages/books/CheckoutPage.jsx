@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
-// import { useAuth } from "../../context/AuthContext";
-
-import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthContext";
-// import { useCreateOrderMutation } from "../../redux/features/orders/ordersApi";
+import Swal from "sweetalert2";
+import { useCreateOrderMutation } from "../../redux/features/orders/ordersApi";
+
+
+
+
 
 const CheckoutPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -18,16 +20,18 @@ const CheckoutPage = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
 
-  // const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+
+
   const navigate = useNavigate();
 
   const [isChecked, setIsChecked] = useState(false);
 
   const onSubmit = async (data) => {
+
     const newOrder = {
       name: data.name,
       email: currentUser?.email,
@@ -42,13 +46,14 @@ const CheckoutPage = () => {
       totalPrice: totalPrice,
     };
 
+    console.log(newOrder);
+
     try {
       await createOrder(newOrder).unwrap();
       Swal.fire({
         title: "Confirmed Order",
         text: "Your order placed successfully!",
-        icon: "warning",
-        showCancelButton: true,
+        icon: "success",
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, It's Okay!",
@@ -60,7 +65,10 @@ const CheckoutPage = () => {
     }
   };
 
-  // if (isLoading) return <div>Loading....</div>;
+  if (isLoading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
   return (
     <section>
       <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -100,7 +108,7 @@ const CheckoutPage = () => {
                     </div>
 
                     <div className="md:col-span-5">
-                      <label html="email">Email Address</label>
+                      <label htmlFor="email">Email Address</label>
                       <input
                         type="text"
                         name="email"
@@ -112,7 +120,7 @@ const CheckoutPage = () => {
                       />
                     </div>
                     <div className="md:col-span-5">
-                      <label html="phone">Phone Number</label>
+                      <label htmlFor="phone">Phone Number</label>
                       <input
                         {...register("phone", { required: true })}
                         type="number"
