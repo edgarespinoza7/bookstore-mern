@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 // import { useAuth } from "../../context/AuthContext";
 
 import Swal from "sweetalert2";
+import { useAuth } from "../../context/AuthContext";
 // import { useCreateOrderMutation } from "../../redux/features/orders/ordersApi";
 
 const CheckoutPage = () => {
@@ -12,11 +13,12 @@ const CheckoutPage = () => {
   const totalPrice = cartItems
     .reduce((acc, item) => acc + item.newPrice, 0)
     .toFixed(2);
-  const currentUser = true; //This should be replaced with the actual user authentication logic
+
+  const { currentUser } = useAuth();
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 

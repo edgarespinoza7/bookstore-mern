@@ -20,10 +20,11 @@ const Register = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data)
+
     try {
       await registerUser(data.email, data.password)
       alert('User registered successfully!')
+      navigate('/')
     } catch (error) {
       setMessage('Please provide a valid email and password')
       console.log(error.message)

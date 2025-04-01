@@ -7,6 +7,7 @@ import { RiHeartLine } from "react-icons/ri";
 import { FiShoppingCart } from "react-icons/fi";
 import avatarImg from "../assets/avatar.png";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -23,7 +24,16 @@ const Navbar = () => {
 
 
   // State to manage user authentication status
-  const currentUser = false;
+  const { currentUser, logOut } = useAuth();
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      setIsDropdownOpen(false);
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
+  }
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 md:px-12 py-6">
@@ -76,6 +86,13 @@ const Navbar = () => {
                           </Link>
                         </li>
                       ))}
+                      <li
+                        onClick={() => {
+                          handleLogOut();
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        <button className="block w-full text-left py-2 px-4 text-sm hover:bg-gray-100">Log Out</button></li>
                     </ul>
                   </div>
                 )}
