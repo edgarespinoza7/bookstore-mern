@@ -8,7 +8,7 @@ const Login = () => {
 
   const [message, setMessage] = useState('')
 
-  const { loginUser } = useAuth()
+  const { loginUser, signInWithGoogle } = useAuth()
 
   const navigate = useNavigate()
 
@@ -30,8 +30,15 @@ const Login = () => {
     }
   }
 
-  const handleGoogleSignIn = () => {
-
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      alert('User logged in successfully!');
+      navigate('/');
+    } catch (error) {
+      alert('Google sign in failed!');
+      console.log(error.message);
+    }
   }
 
   // const [message, setMessage] = useState('');
