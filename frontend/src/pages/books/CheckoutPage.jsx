@@ -20,10 +20,9 @@ const CheckoutPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
-  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
 
 
   const navigate = useNavigate();

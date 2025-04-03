@@ -16,6 +16,7 @@ const ordersApi = createApi({
   }),
   tagTypes: ['Orders'],
   endpoints: (builder) => ({
+    // Create a new order
     createOrder: builder.mutation({
       query: (newOrder) => ({
         url: `/`,
@@ -25,26 +26,36 @@ const ordersApi = createApi({
       }),
       invalidatesTags: ['Orders'],
     }),
-    fetchAllOrders: builder.query({
-      query: () => '/',
+
+    getOrdersByEmail: builder.query({
+      query: (email) => (
+        {
+          url: `/email/${email}`,
+          method: 'GET',
+          credentials: 'include',
+        }
+      ),
+      transformResponse: (response) => response.orders || [], 
       providesTags: ['Orders'],
     }),
-    fetchOrderById: builder.query({
-      query: (id) => `/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Orders', id }],
-    }),
 
-    updateOrderStatus: builder.mutation({
-      query: ({ id, ...rest }) => ({
-        url: `/edit/${id}`,
-        method: 'PUT',
-        body: rest,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }),
-      invalidatesTags: ['Orders'],
-    }),
+    // fetchOrderById: builder.query({
+    //   query: (id) => `/${id}`,
+    //   providesTags: (result, error, id) => [{ type: 'Orders', id }],
+    // }),
+
+    // updateOrderStatus: builder.mutation({
+    //   query: ({ id, ...rest }) => ({
+    //     url: `/edit/${id}`,
+    //     method: 'PUT',
+    //     body: rest,
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }),
+    //   invalidatesTags: ['Orders'],
+    // }),
+
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/delete/${id}`,
@@ -57,6 +68,7 @@ const ordersApi = createApi({
 
 export const {
   useCreateOrderMutation,
+  useGetOrdersByEmailQuery,
   useFetchAllOrdersQuery,
   useFetchOrderByIdQuery,
   useUpdateOrderStatusMutation,

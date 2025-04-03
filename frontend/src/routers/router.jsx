@@ -8,6 +8,7 @@ import CartPage from "../pages/books/CartPage";
 import CheckoutPage from "../pages/books/CheckoutPage";
 import SingleBook from "../pages/books/SingleBook";
 import PrivateRoute from "./PrivateRoute";
+import OrdersPage from "../pages/books/OrdersPage";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/orders",
-        element: <h1>Orders</h1>,
+        element: <PrivateRoute><OrdersPage /></PrivateRoute>,
       },
       {
         path: "/login",
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <PrivateRoute><CheckoutPage /></PrivateRoute> ,
+        element: <PrivateRoute><CheckoutPage /></PrivateRoute>,
       },
       {
         path: "/books/:id",

@@ -5,16 +5,20 @@ import { Navigate } from 'react-router';
 // he path based on your project structure
 
 
-const PrivateRoute = ({children}) => {
+const PrivateRoute = ({ children }) => {
 
 
 
-  const {currentUser} = useAuth(); // 
+  const { currentUser, loading } = useAuth(); // 
 
-  if(currentUser) {
+  if (loading) {
+    return <div className='container mx-auto p-6'>Loading...</div>; // Show loading state while checking authentication
+  }
+
+  if (currentUser) {
     return children
   }
-  return  <Navigate to="/login" /> // Redirect to login page if not authenticated
+  return <Navigate to="/login" /> // Redirect to login page if not authenticated
 }
 
 PrivateRoute.propTypes = {
