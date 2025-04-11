@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
 
 
     res.status(200).json({
-      totalSales: totalSales[0]?.totalSales || 0,
+      totalSales: parseFloat(totalSales[0]?.totalSales || 0).toFixed(2),
       trendingBooks,
       totalBooks,
       monthlySales,

@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, []);
 
 
-  console.log(data)
+
 
   if (loading) return <Loading />;
 

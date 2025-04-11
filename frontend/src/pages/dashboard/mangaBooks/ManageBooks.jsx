@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useDeleteBookMutation, useFetchAllBooksQuery } from '../../../redux/features/books/booksApi';
 
 const ManageBooks = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { data: books, refetch } = useFetchAllBooksQuery()
 
@@ -23,9 +23,9 @@ const ManageBooks = () => {
   };
 
   // Handle navigating to Edit Book page
-  const handleEditClick = (id) => {
-    navigate(`dashboard/edit-book/${id}`);
-  };
+  // const handleEditClick = (id) => {
+  //   navigate(`dashboard/edit-book/${id}`);
+  // };
   return (
     <>
       <section className="py-1 bg-blueGray-50">
