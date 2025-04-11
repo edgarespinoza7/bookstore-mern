@@ -2,22 +2,19 @@ import React, { useEffect } from 'react'
 import InputField from '../addBook/InputField'
 import SelectField from '../addBook/SelectField'
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
-import { useFetchBookByIdQuery } from '../../../redux/features/books/booksApi';
+import { useParams } from 'react-router-dom';
+import { useFetchBookByIdQuery, useUpdateBookMutation } from '../../../redux/features/books/booksApi';
 import Loading from '../../../components/Loading';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { getBaseURL } from '../../../utils/baseURL'
-
+import getBaseUrl from '../../../utils/baseURL';
 
 const UpdateBook = () => {
-
   const { id } = useParams();
   const { data: bookData, isLoading, isError, refetch } = useFetchBookByIdQuery(id);
   // console.log(bookData)
-  // Removed unused updateBook variable
-  const { register, handleSubmit, setValue } = useForm();
-
+  const [updateBook] = useUpdateBookMutation();
+  const { register, handleSubmit, setValue, reset } = useForm();
   useEffect(() => {
     if (bookData) {
       setValue('title', bookData.title);
@@ -40,15 +37,13 @@ const UpdateBook = () => {
       newPrice: Number(data.newPrice),
       coverImage: data.coverImage || bookData.coverImage,
     };
-
     try {
-      await axios.put(`${getBaseURL()}/api/books/edit/${id}`, updateBookData, {
+      await axios.put(`${getBaseUrl()}/api/books/edit/${id}`, updateBookData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })
-
       Swal.fire({
         title: "Book Updated",
         text: "Your book is updated successfully!",
@@ -60,13 +55,12 @@ const UpdateBook = () => {
       });
       await refetch()
     } catch (error) {
-      console.log("Failed to update book.", error);
+      console.log("Failed to update book.");
       alert("Failed to update book.");
     }
   }
   if (isLoading) return <Loading />
   if (isError) return <div>Error fetching book data</div>
-
   return (
     <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Book</h2>
