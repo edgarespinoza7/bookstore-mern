@@ -73,12 +73,12 @@ const router = createBrowserRouter([
       },
       {
         path: "add-new-book",
-        element: <AdminRoute><AddBook/></AdminRoute>,
+        element: <AdminRoute><AddBook /></AdminRoute>,
 
       },
       {
         path: "edit-book/:id",
-        element: <AdminRoute><UpdateBook/></AdminRoute>,
+        element: <AdminRoute><UpdateBook /></AdminRoute>,
 
       },
       {
