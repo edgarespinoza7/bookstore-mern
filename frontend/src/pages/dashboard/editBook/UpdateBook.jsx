@@ -7,7 +7,7 @@ import { useFetchBookByIdQuery, useUpdateBookMutation } from '../../../redux/fea
 import Loading from '../../../components/Loading';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import getBaseUrl from '../../../utils/baseURL';
+import getBaseURL from '../../../utils/baseURL';
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -38,7 +38,7 @@ const UpdateBook = () => {
       coverImage: data.coverImage || bookData.coverImage,
     };
     try {
-      await axios.put(`${getBaseUrl()}/api/books/edit/${id}`, updateBookData, {
+      await axios.put(`${getBaseURL()}/api/books/edit/${id}`, updateBookData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
